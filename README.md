@@ -2,6 +2,8 @@
 
 Analyze and classify audio signals in Python
 
+<img src="images/3d_plot.png" width="600">
+
 ## Built With
 
 * Python 3.7
@@ -13,8 +15,8 @@ Analyze and classify audio signals in Python
 [GTZAN](http://marsyas.info/downloads/datasets.html) Genre Collection
 
 * Dataset consists of 1000 audio tracks, 30 seconds long each
-# Tracks are all 22050 Hz mono 16-bit audio files in .wav format
-* 8 genres (100 songs/genre)
+* Tracks are all 22050 Hz mono 16-bit audio files in .wav format
+* 10 genres (100 songs/genre)
 ** Blues
 ** Classical
 ** Country
@@ -36,7 +38,7 @@ Analyze and classify audio signals in Python
 * Spectral centroid - weighted mean of frequencies present in audio clip
 * Spectral roll-off
 * Chroma frequencies
-* Mel-Frequency Cepstral Coefficients (MLCC)
+* Mel-Frequency Cepstral Coefficients (MFCC)
 
 
 
