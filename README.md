@@ -28,9 +28,6 @@ Analyze and classify audio signals in Python
 	* Raggae
 	* Rock
 
-## Usage
-
-## Design
 
 ### Feature Extraction
 
@@ -38,9 +35,23 @@ Analyze and classify audio signals in Python
 * Spectral centroid - weighted mean of frequencies present in audio clip
 * Spectral roll-off
 * Chroma frequencies
-* Mel-Frequency Cepstral Coefficients (MFCC)
+* Mel-Frequency Cepstral Coefficients (MFCC) (x20)
+
+## Usage
+
+## Results
+
+<img src="images/confusion_matrix_svm_poly_kernel.png" width="600">
 
 
+|                    | Mean Accuracy | Mean Precision | Mean Recall |
+|:------------------:|:-------------:|:--------------:|:-----------:|
+| SVM, Linear Kernel |      0.61     |      0.60      |     0.61    |
+|  SVM, Poly Kernel  |      0.77     |      0.78      |     0.77    |
+|   SVM, RBF Kernel  |      0.76     |      0.76      |     0.76    |
+|         NN         |      0.67     |                |             |
+
+## Design
 
 ## Author
 

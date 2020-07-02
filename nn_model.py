@@ -1,21 +1,12 @@
 
-
 import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import tensorflow as tf
-
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
-
-from tensorflow.python.compiler.tensorrt import trt_convert as trt
-
-from sklearn.pipeline import Pipeline
-from sklearn.svm import LinearSVC
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.svm import SVC
 
 file = 'data.csv'
 dir = os.getcwd()
@@ -37,9 +28,8 @@ le = LabelEncoder()
 le.fit(y)
 y = le.transform(y)
 
-test_split = 0.3
+test_split = 0.1
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=test_split, random_state=4)
-
 
 input_shape = x_train.shape[1]
 
@@ -49,9 +39,6 @@ num_classes = len(y_train)
 
 # build nn model
 model = tf.keras.Sequential()
-# model.add(tf.keras.Input(shape=input_shape,))
-# model.add(tf.keras.layers.Dense(num_classes, activation='softmax'))
-
 model.add(tf.keras.layers.Dense(256, activation='relu', input_shape=(x_train.shape[1],)))
 model.add(tf.keras.layers.Dense(128, activation='relu'))
 model.add(tf.keras.layers.Dense(64, activation='relu'))
@@ -60,16 +47,47 @@ model.add(tf.keras.layers.Dense(10, activation='softmax'))
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
+
 # train model
-model.fit(x_train, y_train, epochs = 50, batch_size = 128)
+model.fit(x_train,
+          y_train,
+          epochs = 10,
+          batch_size = 128,
+          validation_split = 0.2)
 
 test_loss, test_acc = model.evaluate(x_test, y_test)
 
+print(model.history.history)
+
+epoch = model.history.epoch
+acc = model.history.history['accuracy']
+loss = model.history.history['loss']
+val_loss = model.history.history['val_loss']
+val_acc = model.history.history['val_accuracy']
+
 print('test_acc: ',test_acc)
 
+fig, ax1 = plt.subplots()
 
-# pickle.dump( {'my_words':my_words, 'my_classes
+ax2 = ax1.twinx()
 
+line1 = ax1.plot(epoch,acc,label='accuracy')
+line2 = ax1.plot(epoch,val_acc,label='val_accuracy')
+
+line3 = ax2.plot(epoch,loss,label='loss',color='g')
+line4 = ax2.plot(epoch,val_loss,label='val_loss',color='r')
+
+lines = line1+line2+line3+line4
+labs = [l.get_label() for l in lines]
+ax1.legend(lines, labs, loc=1)
+
+ax1.set_xlabel('Epoch')
+ax1.set_ylabel('Accuracy')
+ax2.set_ylabel('Loss')
+
+plt.grid()
+
+plt.show()
 
 # load model
 
