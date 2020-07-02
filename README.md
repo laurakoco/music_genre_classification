@@ -17,16 +17,16 @@ Analyze and classify audio signals in Python
 * Dataset consists of 1000 audio tracks, 30 seconds long each
 * Tracks are all 22050 Hz mono 16-bit audio files in .wav format
 * 10 genres (100 songs/genre)
-** Blues
-** Classical
-** Country
-** Disco
-** Hip Hop
-** Jazz
-** Metal
-** Pop
-** Raggae
-** Rock
+	* Blues
+	* Classical
+	* Country
+	* Disco
+	* Hip Hop
+	* Jazz
+	* Metal
+	* Pop
+	* Raggae
+	* Rock
 
 ## Usage
 
