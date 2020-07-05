@@ -8,7 +8,9 @@ Analyze and classify audio signals in Python
 
 * Python 3.7
 * [Librosa](https://librosa.org/librosa/) 0.7.2
-* [sklearn](https://scikit-learn.org/stable/) 
+* [sklearn](https://scikit-learn.org/stable/) 0.0
+* [TensorFlow](https://www.tensorflow.org/) 2.1.1
+* [pandas](https://pandas.pydata.org/) 1.0.4
 
 ## Data
 
@@ -28,16 +30,14 @@ Analyze and classify audio signals in Python
 	* Raggae
 	* Rock
 
-
 ### Feature Extraction
 
 * Zero crossing rate - rate at which the signal changes from positive to negative or negative to positive
 * Spectral centroid - weighted mean of frequencies present in audio clip
-* Spectral roll-off
-* Chroma frequencies
-* Mel-Frequency Cepstral Coefficients (MFCC) (x20)
-
-## Usage
+* Spectral roll-off - the frequency below which a specified percentage of the total spectral energy ( 85% by default) lies
+* Chroma frequencies - the intensity of each of the 12 distinct musical chroma of the octave; chroma representation/chromagarm (via short-term fourier transform) 
+* Mel-Frequency Cepstral Coefficients (MFCC) (x20) - coefficients that collectively make up an MFC
+	* Mel-Frequency Cepstrum (MFC) - representation of the short-term power spectrum of a sound, based on a linear cosine transform of a log power spectrum on a nonlinear mel scale of frequency
 
 ## Results
 
@@ -51,7 +51,21 @@ Analyze and classify audio signals in Python
 |   SVM, RBF Kernel  |      0.76     |      0.76      |     0.76    |
 |         NN         |      0.67     |                |             |
 
-## Design
+
+## Usage
+
+* Download GTZAN dataset
+* Run requirements.txt
+```
+$ pip install -r requirements.txt
+```
+* Run preprocessing.py to generate csv file (data.csv) with features for each file
+	* Change path to the root directory (genres) of GTZAN dataset
+```
+path = '/path/to/gtzan/genres/' # path to data
+```
+* Run models (i.e. svm_model.py)
+
 
 ## Author
 
