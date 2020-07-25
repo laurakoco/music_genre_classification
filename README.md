@@ -75,17 +75,17 @@ We use a 90%/10% test/train split.
 
 Here are some plots which help to visualize how certain hyper-parameters were selected.
 
-We can see k nearest neighbors = 7 optimizes the accuracy.
 <img src="images/k-nn.png" width="600">
+For k-NN, we can see k nearest neighbors = 7 optimizes the accuracy.
 
-Here we've plotted random forest accuracy versus N (number of subtrees) and d (maximum depth of each subtree). It’s easy to visualize that for d > 6, the accuracy seems to converge. Similarly, accuracy seems to improve slightly for N > 6.
 <img src="images/random_forest.png" width="600">
+Here we've plotted random forest accuracy versus N (number of subtrees) and d (maximum depth of each subtree). It’s easy to visualize that for d > 6, the accuracy seems to converge. Similarly, accuracy seems to improve slightly for N > 6.
 
-For polynomial kernel SVM, c=1/degree=3 and c=10/degree=2 seem like good choices. 
 <img src="images/poly_svm.png" width="600">
+For polynomial kernel SVM, c=1/degree=3 and c=10/degree=2 seem like good choices. 
 
-Here we try SVM with different kernels and different values of gamma. We plot the x-axis on a log scale. We can see the rbf kernel performs the best with gamma=0.1.
 <img src="images/kernel_svm.png" width="600">
+Here we try SVM with different kernels and different values of gamma. We plot the x-axis on a log scale. We can see the rbf kernel performs the best with gamma=0.1.
 
 ### Neural Network
 
