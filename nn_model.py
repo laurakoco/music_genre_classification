@@ -7,6 +7,7 @@ import tensorflow as tf
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn import metrics
 
 file = 'data.csv'
 dir = os.getcwd()
@@ -57,6 +58,16 @@ model.fit(x_train,
 
 test_loss, test_acc = model.evaluate(x_test, y_test)
 
+pred = model.predict_classes(x_test)
+acc = metrics.accuracy_score(y_test, pred)
+precision_recall_fscore_support = metrics.precision_recall_fscore_support(y_test, pred)
+prec = np.mean(precision_recall_fscore_support[0])
+recall = np.mean(precision_recall_fscore_support[1])
+
+print('accuracy: ' + str(acc))
+print('precision: ' + str(prec))
+print('recall: ' + str(recall))
+
 print(model.history.history)
 
 epoch = model.history.epoch
@@ -65,9 +76,11 @@ loss = model.history.history['loss']
 val_loss = model.history.history['val_loss']
 val_acc = model.history.history['val_accuracy']
 
-print('test_acc: ',test_acc)
+# print('test_acc: ',test_acc)
 
 fig, ax1 = plt.subplots()
+
+plt.title('Training Data')
 
 ax2 = ax1.twinx()
 

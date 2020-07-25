@@ -34,7 +34,7 @@ The purpose of this project is to explore different machine learning classifiers
 	* Raggae
 	* Rock
 
-### Pre-Processing: Feature Extraction
+## Pre-Processing: Feature Extraction
 
 In order to train and test our classifiers, we need to identify the features to extract from the audio samples. Luckily, prior research has already identified features that perform well in music genre classification.
 
@@ -51,7 +51,7 @@ This results in a feature vector of 25 features.
 
 The feature extraction is done by running preprocessing_pandas.py. This file takes several minutes to run, as the processing of each sample takes a few seconds.
 
-### Results
+## Models
 
 We use the pre-processed features in order to train and test the different machine learning classifiers:
 * Linear SVM
@@ -66,23 +66,46 @@ We use the pre-processed features in order to train and test the different machi
 * Decision Tree
 * Neural Network
 
+
 Please note, some of these classifiers required hyper-parameter tuning to optimize the accuracy (SVM, k-NN, random forest, neural network)
+
+We use a 90%/10% test/train split. 
+
+### Hyper-Parameter Tuning
+
+Here are some plots which help to visualize how certain hyper-parameters were selected (i.e. k=7)
+
+<img src="images/k-nn.png" width="600">
+
+<img src="images/random_forest.png" width="600">
+
+### Neural Network
+
+This is the structure of the neural network implemented in TensorFlow. We use the Adam optimizer and train for only 10 epochs. Otherwise, overfitting will occur as can be seen in the training curves.
+
+<img src="images/nn_structure.png" width="600">
+
+<img src="images/nn_train.png" width="600">
+
+## Results
+
+The best performing classifier is the Poly Kernel SVM. The worst performing is Naive Bayes.
 
 <img src="images/accuracy.png" width="600">
 
-|                     | Mean Accuracy | Mean Precision | Mean Recall |
-|:-------------------:|:-------------:|:--------------:|:-----------:|
-|  SVM, Linear Kernel |      0.62     |      0.61      |     0.61    |
-|   SVM, Poly Kernel  |      0.76     |      0.77      |     0.77    |
-|   SVM, RBF Kernel   |      0.72     |      0.72      |     0.72    |
-|      k-NN (k=7)     |      0.73     |      0.74      |     0.73    |
-| Logistic Regression |      0.71     |      0.70      |     0.73    |
-|    Naive Bayesian   |      0.38     |      0.31      |     0.36    |
-|         LDA         |      0.69     |      0.69      |     0.7     |
-|         QDA         |      0.74     |      0.74      |     0.74    |
-|    Random Forest    |      0.59     |      0.59      |     0.60    |
-|    Decision Tree    |      0.53     |      0.52      |     0.52    |
-|          NN         |      0.67     |                |             |
+|                                            | Mean Accuracy | Mean Precision | Mean Recall |
+|:------------------------------------------:|:-------------:|:--------------:|:-----------:|
+|          SVM, Linear Kernel (C=1)          |      0.62     |      0.61      |     0.61    |
+| SVM, Poly Kernel (Degree=2, Coef0=1, C=10) |      0.76     |      0.77      |     0.77    |
+|     SVM, RBF Kernel (Gamma=0.01, C=10)     |      0.72     |      0.72      |     0.72    |
+|                 k-NN (k=7)                 |      0.73     |      0.74      |     0.73    |
+|             Logistic Regression            |      0.71     |      0.70      |     0.73    |
+|               Naive Bayesian               |      0.38     |      0.31      |     0.36    |
+|                     LDA                    |      0.69     |      0.69      |     0.7     |
+|                     QDA                    |      0.74     |      0.74      |     0.74    |
+|                Random Forest               |      0.59     |      0.59      |     0.60    |
+|                Decision Tree               |      0.53     |      0.52      |     0.52    |
+|             NN (Adam Optimizer)            |      0.62     |      0.63      |     0.62    |
 
 <img src="images/confusion_matrix_svm_poly_kernel.png" width="600">
 
