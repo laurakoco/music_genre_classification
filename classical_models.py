@@ -18,6 +18,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn import tree
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import VotingClassifier
 
 file = 'data.csv'
 dir = os.getcwd()
@@ -82,57 +83,63 @@ if __name__ == "__main__":
     df = pd.DataFrame(columns=['model','acc','precision','recall']) # df for storing error for d and N combinations
 
     # linear svm
-    model = linear_svm_clf = Pipeline((
+    lin_svm = linear_svm_clf = Pipeline((
         ("scaler", StandardScaler()),
         ("linear_svc", LinearSVC(C=1, loss="hinge", max_iter=1000000))
     ))
-    df = get_model_performance(df,model,'Linear SVM')
+    df = get_model_performance(df,lin_svm,'Linear SVM')
 
     # poly kernel svm
-    model = poly_kernel_svm_clf = Pipeline((
+    poly_svm = poly_kernel_svm_clf = Pipeline((
         ("scaler", StandardScaler()),
         ("svm_clf", SVC(kernel="poly", degree=2, coef0=1, C=10))
     ))
-    df = get_model_performance(df,model,'Poly Kernel SVM')
+    df = get_model_performance(df,poly_svm,'Poly Kernel SVM')
 
     # rbf svm
-    model = rbf_kernel_svm_clf = Pipeline((
+    rbf_svm = rbf_kernel_svm_clf = Pipeline((
         ("scaler", StandardScaler()),
-        ("svm_clf", SVC(kernel='rbf', gamma=0.01, C=10))
+        ("svm_clf", SVC(kernel='rbf', gamma=0.1, C=10))
     ))
-    df = get_model_performance(df,model,'RBF SVM')
+    df = get_model_performance(df,rbf_svm,'RBF SVM')
 
     # k-nn
     k = 7
-    model = KNeighborsClassifier(n_neighbors=k)
+    knn = KNeighborsClassifier(n_neighbors=k)
     model_name = 'k-NN k=' + str(k)
-    df = get_model_performance(df,model,model_name)
+    df = get_model_performance(df,knn,model_name)
 
     # logistic regression
-    model = LogisticRegression(max_iter=10000).fit(x_train, y_train)
-    df = get_model_performance(df,model,'Logistic Regression')
+    lr = LogisticRegression(max_iter=10000).fit(x_train, y_train)
+    df = get_model_performance(df,lr,'Logistic Regression')
 
     # naive bayesian
-    model = GaussianNB()
-    df = get_model_performance(df,model,'Naive Bayesian')
+    nb = GaussianNB()
+    df = get_model_performance(df,nb,'Naive Bayesian')
 
     # lda
-    model = LDA()
-    df = get_model_performance(df,model,'LDA')
+    lda = LDA()
+    df = get_model_performance(df,lda,'LDA')
 
     # qda
-    model = QDA()
-    df = get_model_performance(df,model,'QDA')
+    qda = QDA()
+    df = get_model_performance(df,qda,'QDA')
 
     # random forest
-    model = RandomForestClassifier(n_estimators=6, max_depth=10, criterion='entropy')
-    df = get_model_performance(df,model,'Random Forest')
+    rf = RandomForestClassifier(n_estimators=6, max_depth=10, criterion='entropy')
+    df = get_model_performance(df,rf,'Random Forest')
 
     # adaboost
 
     # decision tree
-    model = tree.DecisionTreeClassifier(criterion='entropy')
-    df = get_model_performance(df,model,'Decision Tree')
+    dt = tree.DecisionTreeClassifier(criterion='entropy')
+    df = get_model_performance(df,dt,'Decision Tree')
+
+    # ensemble (majority) voting classifier
+    vc = VotingClassifier(
+        estimators = [('poly_svm',poly_svm),('qda',qda),('rbf_svm',rbf_svm),('knn',knn)],
+        voting = 'hard')
+    df = get_model_performance(df,vc,'Voting Classifier')
 
     print(df)
 
