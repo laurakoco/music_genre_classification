@@ -89,7 +89,7 @@ This is the structure of the neural network implemented in TensorFlow. We use th
 
 ## Results
 
-The best performing classifier is the Poly Kernel SVM. The worst performing is Naive Bayes.
+The best performing classifier the ensemble (majority) voting classifier. For this, we use the SVM Poly, k-NN, and QDA as the estimators. The worst performing is Naive Bayes.
 
 <img src="images/accuracy.png" width="600">
 
@@ -103,7 +103,7 @@ The best performing classifier is the Poly Kernel SVM. The worst performing is N
 |               Naive Bayesian               |      0.38     |      0.31      |     0.36    |
 |                     LDA                    |      0.69     |      0.69      |     0.7     |
 |                     QDA                    |      0.74     |      0.74      |     0.74    |
-|                Random Forest               |      0.59     |      0.59      |     0.60    |
+|          Random Forest (N=6, d=10)         |      0.59     |      0.59      |     0.60    |
 |                Decision Tree               |      0.53     |      0.52      |     0.52    |
 |             NN (Adam Optimizer)            |      0.62     |      0.63      |     0.62    |
 
