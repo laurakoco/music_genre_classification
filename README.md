@@ -54,14 +54,14 @@ The feature extraction is done by running preprocessing_pandas.py. This file tak
 ## Models
 
 We use the pre-processed features in order to train and test the different machine learning classifiers:
-* Linear SVM
-* Polynomial SVM
-* RBF SVM
-* k-NN
+* Linear Kernel SVM
+* Polynomial Kernel SVM
+* Radial Basis Function (RBF) SVM
+* K Nearest Neighbors (k-NN)
 * Logistic Regression
 * Naïve Bayesian
-* LDA
-* QDA
+* Linear Discriminant Analysis (LDA)
+* Quadratic Discriminant Analysis (QDA)
 * Random Forest
 * Decision Tree
 * Neural Network
@@ -85,7 +85,7 @@ Here we've plotted random forest accuracy versus N (number of subtrees) and d (m
 For polynomial kernel SVM, c=1/degree=3 and c=10/degree=2 seem like good choices. 
 
 <img src="images/kernel_svm.png" width="600">
-Here we try SVM with different kernels and different values of gamma. We plot the x-axis on a log scale. We can see the rbf kernel performs the best with gamma=0.1.
+Here we try SVM with different kernels and different values of gamma (c=10). We plot the x-axis on a log scale. We can see the rbf kernel performs the best with gamma=0.1.
 
 ### Neural Network
 
