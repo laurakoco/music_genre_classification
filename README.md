@@ -10,18 +10,19 @@ The purpose of this project is to explore different machine learning classifiers
 
 ## Built With
 
-* Python 3.7
+* [Python](https://www.python.org/) 3.7
 * [Librosa](https://librosa.org/librosa/) 0.7.2
 * [sklearn](https://scikit-learn.org/stable/) 0.0
 * [TensorFlow](https://www.tensorflow.org/) 2.1.1
 * [pandas](https://pandas.pydata.org/) 1.0.4
+* [matplotlib](https://matplotlib.org/) 3.0.2
 
 ## Data
 
 [GTZAN](http://marsyas.info/downloads/datasets.html) Genre Collection
 
-* Dataset consists of 1000 audio tracks, 30 seconds long each
-* Tracks are all 22050 Hz mono 16-bit audio files in .wav format
+* 1000 audio tracks, 30 seconds long each
+* 22,050 Hz mono 16-bit audio files in .wav format
 * 10 genres (100 songs/genre)
 	* Blues
 	* Classical
@@ -40,16 +41,16 @@ In order to train and test our classifiers, we need to identify the features to 
 
 The features that we extract are:
 
-* Zero Crossing Rate - rate at which the signal changes from positive to negative or negative to positive
-* Spectral Centroid - weighted mean of frequencies present in audio clip
-* Spectral Roll-Off - the frequency below which a specified percentage of the total spectral energy ( 85% by default) lies
-* Chroma Frequencies - the intensity of each of the 12 distinct musical chroma of the octave; chroma representation/chromagarm (via short-term fourier transform) 
-* Mel-Frequency Cepstral Coefficients (MFCC) (x20) - coefficients that collectively make up an MFC
-* Mel-Frequency Cepstrum (MFC) - representation of the short-term power spectrum of a sound, based on a linear cosine transform of a log power spectrum on a nonlinear mel scale of frequency
+* **Zero Crossing Rate** - rate at which the signal changes from positive to negative or negative to positive
+* **Spectral Centroid** - weighted mean of frequencies present in audio clip
+* **Spectral Roll-Off** - the frequency below which a specified percentage of the total spectral energy (85% by default) lies
+* **Chroma Frequencies** - the intensity of each of the 12 distinct musical chroma of the octave; chroma representation/chromagarm (via short-term fourier transform) 
+* **Mel-Frequency Cepstral Coefficients (MFCC)** (x20) - coefficients that collectively make up an MFC
+* **Mel-Frequency Cepstrum (MFC)** - representation of the short-term power spectrum of a sound, based on a linear cosine transform of a log power spectrum on a nonlinear mel scale of frequency
 
-This results in a feature vector of 25 features.
+This results in a feature vector of length 25.
 
-The feature extraction is done by running preprocessing_pandas.py. This file takes several minutes to run, as the processing of each sample takes a few seconds.
+The feature extraction is done by running preprocessing.py. This file takes several minutes to run, as the processing of each sample takes a few seconds.
 
 ## Models
 
@@ -67,7 +68,7 @@ We use the pre-processed features in order to train and test the different machi
 * Neural Network
 
 
-Please note, some of these classifiers required hyper-parameter tuning to optimize the accuracy (SVM, k-NN, random forest, neural network)
+Please note, some of these classifiers required hyper-parameter tuning to optimize the accuracy (SVM, k-NN, random forest, neural network).
 
 We use a 90%/10% test/train split. 
 
@@ -97,14 +98,14 @@ This is the structure of the neural network implemented in TensorFlow. We use th
 
 ## Results
 
-The best performing classifier is the ensemble (majority) voting classifier. For this, we use the SVM Poly, RBF SVM, k-NN, and QDA as the estimators. The worst performing classifier is Naive Bayes.
+The best performing classifier is the ensemble (majority) voting classifier. For this, we use the Poly SVM, RBF SVM, k-NN, and QDA as the estimators. The worst performing classifier is Naive Bayes.
 
 <img src="images/accuracy.png" width="600">
 
 |                                            | Mean Accuracy | Mean Precision | Mean Recall |
 |:------------------------------------------:|:-------------:|:--------------:|:-----------:|
 |          SVM, Linear Kernel (C=1)          |      0.62     |      0.61      |     0.61    |
-| SVM, Poly Kernel (Degree=2, Coef0=1, C=10) |      0.76     |      0.77      |     0.77    |
+|     SVM, Poly Kernel (Degree=2, C=10)      |      0.76     |      0.77      |     0.77    |
 |     SVM, RBF Kernel (Gamma=0.1, C=10)      |      0.75     |      0.76      |     0.75    |
 |                 k-NN (k=7)                 |      0.73     |      0.74      |     0.73    |
 |             Logistic Regression            |      0.71     |      0.70      |     0.73    |
@@ -113,22 +114,46 @@ The best performing classifier is the ensemble (majority) voting classifier. For
 |                     QDA                    |      0.74     |      0.74      |     0.74    |
 |          Random Forest (N=6, d=10)         |      0.59     |      0.59      |     0.60    |
 |                Decision Tree               |      0.53     |      0.52      |     0.52    |
-|             NN (Adam Optimizer)            |      0.62     |      0.63      |     0.62    |
+|                  NN (Adam)                 |      0.62     |      0.63      |     0.62    |
 |              Voting Classifier             |      0.79     |      0.81      |     0.79    |
 
 ## Usage
 
-* Download GTZAN dataset
+### Install Requirements
+
 * Run requirements.txt
 ```
 $ pip install -r requirements.txt
 ```
+
+### Get Dataset
+
+#### Use the Dataset I Generated 
+
+[data.csv](https://drive.google.com/file/d/1Rb8nT8HmDiZVBL4pZVx3EShymAiakrd2/view?usp=sharing) or
+
+#### Generate the Same One Yourself
+
+* Download [GTZAN](http://marsyas.info/downloads/datasets.html) dataset
+
 * Run preprocessing.py to generate csv file (data.csv) with features for each file
 	* Change path to the root directory (genres) of GTZAN dataset
 ```
 path = '/path/to/gtzan/genres/' # path to data
 ```
+
+Place data.csv in the same directory as your scripts.
+
+### Run Scripts
+
 * Run classical_models.py to compare the different models
+* Run nn_models.py to create and train neural network model
+* Run plot_features.py to visualize the feautres of the dataset
+* Hyper-Parameter Tuning
+	* Run svm_model.py to see accuracy versus kernel and C
+	* Run random_forest.py to see accuracy versus d and N
+	* Run knn_model.py to see accuracy versus k
+
 
 ## Author
 

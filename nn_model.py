@@ -49,6 +49,8 @@ model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 
+tf.keras.callbacks.History()
+
 # train model
 model.fit(x_train,
           y_train,
@@ -70,6 +72,7 @@ print('recall: ' + str(recall))
 
 print(model.history.history)
 
+epoch = model.history
 epoch = model.history.epoch
 acc = model.history.history['accuracy']
 loss = model.history.history['loss']

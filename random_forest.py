@@ -37,14 +37,19 @@ df = pd.read_csv(file) # read csv data in df
 x = df[['chroma_stft', 'spectral_centroid', 'spectral_bandwidth', 'rolloff', 'zero_crossing_rate', 'mfcc1',
          'mfcc2', 'mfcc3', 'mfcc4', 'mfcc5', 'mfcc6', 'mfcc7', 'mfcc8', 'mfcc9', 'mfcc10', 'mfcc11', 'mfcc12',
          'mfcc13', 'mfcc14', 'mfcc15', 'mfcc16', 'mfcc17', 'mfcc18', 'mfcc19', 'mfcc20']].values
-scaler = StandardScaler()
-scaler.fit(x)
-x = scaler.transform(x)
 
-y = df['label'].values # blues, classical, country, ...
+y = df['label'].values  # blues, classical, country, ...
 
 test_split = 0.1
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=test_split, random_state=4)
+
+# fit scaling on training data only
+# then apply to test data
+scaler = StandardScaler()
+scaler.fit(x_train)
+x_train = scaler.transform(x_train)
+
+x_test = scaler.transform(x_test)
 
 df = pd.DataFrame(columns=['1','2','3','4','5'])  # df for storing error for d and N combinations
 
