@@ -52,6 +52,8 @@ This results in a feature vector of length 25.
 
 The feature extraction is done by running preprocessing.py. This file takes several minutes to run, as the processing of each sample takes a few seconds.
 
+<img src="images/mel-spec.png" width="300">  <img src="images/amp-env.png" width="300">
+
 ## Models
 
 We use the pre-processed features in order to train and test the different machine learning classifiers:
@@ -66,7 +68,6 @@ We use the pre-processed features in order to train and test the different machi
 * Random Forest
 * Decision Tree
 * Neural Network
-
 
 Please note, some of these classifiers required hyper-parameter tuning to optimize the accuracy (SVM, k-NN, random forest, neural network).
 
@@ -117,6 +118,11 @@ The best performing classifier is the ensemble (majority) voting classifier. For
 |                  NN (Adam)                 |      0.62     |      0.63      |     0.62    |
 |              Voting Classifier             |      0.79     |      0.81      |     0.79    |
 
+Below is the confusion matrix for the voting classifier.
+
+<img src="images/confusion_matrix_voting.png" width="600">
+
+
 ## Usage
 
 ### Install Requirements
@@ -153,7 +159,6 @@ Place data.csv in the same directory as your scripts.
 	* Run svm_model.py to see accuracy versus kernel and C
 	* Run random_forest.py to see accuracy versus d and N
 	* Run knn_model.py to see accuracy versus k
-
 
 ## Author
 

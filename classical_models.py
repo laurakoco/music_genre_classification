@@ -58,6 +58,9 @@ def get_model_performance(df,model,model_name):
     precision = np.mean(precision_list)
     recall = np.mean(recall_list)
 
+    metrics.plot_confusion_matrix(model, x_test, y_test)
+    plt.title(model_name)
+
     df_model = pd.DataFrame([[model_name, acc, precision, recall]], columns=['model','acc','precision','recall'])
     df = df.append(df_model)
 
@@ -144,6 +147,8 @@ if __name__ == "__main__":
         estimators = [('poly_svm',poly_svm),('qda',qda),('rbf_svm',rbf_svm),('knn',knn)],
         voting = 'hard')
     df = get_model_performance(df,vc,'Voting Classifier')
+
+    # e
 
     print(df)
 
